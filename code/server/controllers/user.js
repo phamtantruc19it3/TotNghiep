@@ -1,5 +1,7 @@
 const User = require('../models/user')
 const asyncHandler = require('express-async-handler')
+const { generateAccessToken, generateRefreshToken } = require('../middlewares/jwt');
+const user = require('../models/user');
 
 const register = asyncHandler(async (req, res) => {
     const { email, password, firstname, lastname } = req.body
@@ -32,15 +34,25 @@ const login = asyncHandler(async (req, res) => {
 
     const response = await User.findOne({ email })
     if (response && await response.isCorrectPassword(password)) {
+        // Tách password và role ra khỏi response
         const { password, role, ...userData } = response.toObject()
+        // Tạo access token
+        const accessToken = generateAccessToken(response._id, role)
+        // Tạo refresh token
+        const refreshToken = generateRefreshToken(response._id)
+        // Lưu refresh token vào database
+        await User.findByIdAndUpdate(response._id, { refreshToken }, { new: true })
+        // Lưu refresh token vào cookie
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 })
         return res.status(200).json({
             sucess: true,
+            accessToken,
             userData
         })
+    } else {
+        throw new Error('Invalid credentials!')
     }
-    else {
-        throw new Error('xac thuc khong thanh cong')
-    }
+    
 })
 
 module.exports = {
