@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 dbConnect()
 initRoutes(app)
-
+//aa
 app.listen(port, () => {
     console.log(`running on port  http://localhost:${port}`);
 })
