@@ -1,25 +1,10 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 
-const generateAccessToken = (uid, role)=>{
-    // sign có 3 đối số 
-    return jwt.sign(
-        {_id: uid ,role },
-        process.env.JWT_SECRET,
-        {expiresIn: '3d' })
-}
+const generateAccessToken = (uid, role) => jwt.sign({ _id: uid, role }, process.env.JWT_SECRET, { expiresIn: '3d' })
+const generateRefreshToken = (uid) => jwt.sign({ _id: uid }, process.env.JWT_SECRET, { expiresIn: '7d' })
 
-const generateRefreshToken = (uid)=>{
-    // sign có 3 đối số 
-    return jwt.sign(
-        {_id: uid  },
-        process.env.JWT_SECRET,
-        {expiresIn: '7d' })
-}
 
-module.exports ={
+module.exports = {
     generateAccessToken,
     generateRefreshToken
 }
-
-
- 
