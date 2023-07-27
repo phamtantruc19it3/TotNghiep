@@ -35,41 +35,38 @@ var userSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    address: [{ type: mongoose.Types.ObjectId, ref: 'Address', }],
+    address: [{ type: mongoose.Types.ObjectId, ref: 'Address' }],
     wishlist: [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
     isBlocked: {
         type: Boolean,
-        default: false,
+        default: false
     },
-    refleshToken: {
+    refreshToken: {
         type: String,
     },
     passwordChangedAt: {
-        type: String,
+        type: String
     },
-    //OTP= one time password change
     passwordResetToken: {
         type: String
     },
-    // timeout for password reset
     passwordResetExpires: {
         type: String
     }
 }, {
-    timestamps: true,
-}
-);
+    timestamps: true
+});
 
 userSchema.pre('save', async function (next) {
-    if(!this.isModified('password')){ 
-        //khi if tra ve gia tri Bolean
-        next(); }
+    if (!this.isModified('password')) {
+        next()
+    }
     const salt = bcrypt.genSaltSync(10)
-    this.password = await bcrypt.hash(this.password,salt);
+    this.password = await bcrypt.hash(this.password, salt)
 })
-userSchema.methods={
-    isCorrectPassword: async function(password) {
-        return await bcrypt.compare(password,this.password)
+userSchema.methods = {
+    isCorrectPassword: async function (password) {
+        return await bcrypt.compare(password, this.password)
     }
 }
 

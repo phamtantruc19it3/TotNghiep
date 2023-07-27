@@ -61,9 +61,9 @@ const getCurrent = asyncHandler(async (req, res) => {
         rs: user ? user : 'User not found'
     })
 })
+
 module.exports = {
     register,
     login,
     getCurrent
-    
 }

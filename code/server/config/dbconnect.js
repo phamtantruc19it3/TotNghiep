@@ -8,7 +8,7 @@ const dbConnect = async () => {
 
     } catch (error) {
         console.log('DB connection is failed')
-        throw Error(error)
+        throw new Error(error)
     }
 }
 
