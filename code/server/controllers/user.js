@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const { generateAccessToken, generateRefreshToken } = require('../middlewares/jwt')
 const jwt = require('jsonwebtoken')
 const sendMail = require('../ultils/sendMail')
-const crypto =require('crypto')
+const crypto = require('crypto')
 
 
 
@@ -117,6 +117,24 @@ const forgotPassword = asyncHandler(async (req, res) => {
     })
 })
 
+const resetPassword = asyncHandler(async (req, res) => {
+    const { password, token } = req.body
+    if(!password || !token) throw new Error('missing input');
+    const passwordResetToken = crypto.createHash('sha256').update(token).digest('hex')
+    const user = await User.findOne({ passwordResetToken, passwordResetExpires: { $gt: Date.now() } })
+    if (!user) throw new Error('Invalid reset token')
+    user.password = password
+    user.passwordResetToken = undefined
+    user.passwordChangedAt = Date.now()
+    user.passwordResetExpires = undefined
+    await user.save()
+    return res.status(200).json({
+        success: user ? true : false,
+        mes: user ? 'update password' : " something went wrong"
+    })
+
+})  
+
 module.exports = {
     register,
     login,
@@ -124,4 +142,5 @@ module.exports = {
     refreshAccessToken,
     logout,
     forgotPassword,
+    resetPassword
 }
