@@ -1,6 +1,10 @@
 const User = require('../models/user')
 const asyncHandler = require('express-async-handler')
 const { generateAccessToken, generateRefreshToken } = require('../middlewares/jwt')
+const jwt = require('jsonwebtoken')
+const sendMail = require('../ultils/sendMail')
+const crypto =require('crypto')
+
 
 
 const register = asyncHandler(async (req, res) => {
@@ -61,9 +65,67 @@ const getCurrent = asyncHandler(async (req, res) => {
         rs: user ? user : 'User not found'
     })
 })
+const refreshAccessToken = asyncHandler(async (req, res) => {
+    /// get token from cookie
+    const cookie = req.cookies
+    // check token con hop le không 
+    if (!cookie && !cookie.refreshToken) throw new Error(' khong co token trong cookie')
+    const rs = await jwt.verify(cookie.refreshToken, process.env.JWT_SECRET)
+    const response = await User.findOne({ _id: rs._id, refreshToken: cookie.refreshToken })
+    return res.status(200).json(
+        {
+            success: response ? true : false,
+            newAccessToken: response ? generateAccessToken(response._id, response.role) : "refresh token không hợp lệ"
+        })
+
+})
+
+const logout = asyncHandler(async (req, res) => {
+    const cookie = req.cookies
+    if (!cookie && !cookie.refreshToken) throw new Error('no refresh token in cookie')
+    await User.findOneAndUpdate({ refreshToken: cookie.refreshToken }, { refreshToken: "" }, { new: true })
+    res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: true
+    }
+    )
+    return res.status(200).json({
+        success: true,
+        mes: "logout successfully"
+    })
+})
+
+// client
+const forgotPassword = asyncHandler(async (res, req) => {
+    const { email } = req.query
+    if (!email) throw new Error(' missing email')
+    const user = await User.findOne({ email })
+    if (!user) throw new Error(' user not found')
+    const resetToken = user.createPasswordChangeToken()
+    await user.save()
+
+    const html = `click vào link bên dưới để lấy lại mật khẩu, nếu đây không phải là thao tác của bạn, xin vui lòng bỏ qua
+    <br> lik này sẽ hết hạn sau 15 phút kể từ bây giờ
+    <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>
+    `
+
+    const data = {
+        to: email,
+        html
+    }
+    const rs = await sendMail(data)
+    return rs.status(200).json({
+        success: true,
+        rs
+    })
+
+})
 
 module.exports = {
     register,
     login,
-    getCurrent
+    getCurrent,
+    refreshAccessToken,
+    logout,
+    forgotPassword
 }
