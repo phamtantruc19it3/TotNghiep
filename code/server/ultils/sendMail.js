@@ -13,10 +13,9 @@ const sendMail = asyncHandler(async ({ email, html }) => {
         },
     });
     let info = await transporter.sendMail({
-        from: '" cửa hàng điện tử  " <ngaibenktv3@gmail.com>',
+        from: '" cửa hàng điện tử  " <ngaibenktv3@gmail.com>', // sender address
         to: email,
-        subject: " forgot password  ",
-        text: " hello chaof a",
+        subject: "Forgot password", // Subject line
         html: html,
     });
     return info

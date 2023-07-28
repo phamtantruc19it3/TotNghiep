@@ -96,29 +96,25 @@ const logout = asyncHandler(async (req, res) => {
 })
 
 // client
-const forgotPassword = asyncHandler(async (res, req) => {
+const forgotPassword = asyncHandler(async (req, res) => {
     const { email } = req.query
-    if (!email) throw new Error(' missing email')
+    if (!email) throw new Error('Missing email')
     const user = await User.findOne({ email })
-    if (!user) throw new Error(' user not found')
-    const resetToken = user.createPasswordChangeToken()
+    if (!user) throw new Error('User not found')
+    const resetToken = user.createPasswordChangedToken()
     await user.save()
 
-    const html = `click vào link bên dưới để lấy lại mật khẩu, nếu đây không phải là thao tác của bạn, xin vui lòng bỏ qua
-    <br> lik này sẽ hết hạn sau 15 phút kể từ bây giờ
-    <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>
-    `
+    const html = `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ. <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>`
 
     const data = {
-        to: email,
+        email,
         html
     }
     const rs = await sendMail(data)
-    return rs.status(200).json({
+    return res.status(200).json({
         success: true,
         rs
     })
-
 })
 
 module.exports = {
@@ -127,5 +123,5 @@ module.exports = {
     getCurrent,
     refreshAccessToken,
     logout,
-    forgotPassword
+    forgotPassword,
 }
