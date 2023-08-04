@@ -43,9 +43,7 @@ const getProducts = asyncHandler(async (req, res) => {
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join('')
         queryCommand = queryCommand.sort(sortBy);
-
     }
-
 
     try {
         const response = await queryCommand.exec();
