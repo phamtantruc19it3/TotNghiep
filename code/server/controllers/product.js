@@ -24,12 +24,45 @@ const getProduct = asyncHandler(async (req, res) => {
 })
 // filtering ...sorting & phan Trang 
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find()
-    return res.status(200).json({
-        success: products ? true : false,
-        productDatas: products ? products : ' cannot get products'
-    })
-})
+    const queries = { ...req.query };
+
+    // Tách các trường đặc biệt ra khỏi query
+    const excludeFields = ['limit', 'sort', 'page', 'fields'];
+    excludeFields.forEach(el => delete queries[el]);
+
+    // Format lại đúng cú pháp của mongoose
+    let queryString = JSON.stringify(queries);
+    queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, matchedEl => `$${matchedEl}`);
+    const formatedQueries = JSON.parse(queryString);
+    console.log(formatedQueries);
+
+    // Filtering
+    if (queries?.title) formatedQueries.title = { $regex: queries.title, $options: 'i' }
+    let queryCommand = Product.find(formatedQueries);
+    // sorting
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join('')
+        queryCommand = queryCommand.sort(sortBy);
+
+    }
+
+
+    try {
+        const response = await queryCommand.exec();
+        const counts = await Product.find(formatedQueries).countDocuments();
+
+        return res.status(200).json({
+            success: response ? true : false,
+            products: response ? response : 'Cannot get a product',
+            counts
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+});
 
 const updateProduct = asyncHandler(async (req, res) => {
     const { pid } = req.params
