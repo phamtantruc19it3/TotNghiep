@@ -99,26 +99,36 @@ const ratings = asyncHandler(async (req, res) => {
     if (!star || !pid) throw new Error(' missing input ')
     const ratingProduct = await Product.findById(pid)
     const alreadyRating = ratingProduct?.ratings?.find(el => el.postedBy.toString() === _id)
-    console.log({ alreadyRating })
+    // console.log({ alreadyRating })
     if (alreadyRating) {
         //update starr and comments
         await Product.updateOne({
             ratings: { $elemMatch: alreadyRating },
-        },{
-            $set:{
+        }, {
+            $set: {
                 "ratings.$.star": star,
                 "ratings.$.comment": comment,
             }
-        },{new: true})
+        }, { new: true })
 
     } else {
         // them comment vs start
         const response = await Product.findByIdAndUpdate(pid, {
             $push: { ratings: { star, comment, postedBy: _id } }
         }, { new: true })
-        console.log(response)
+        // console.log(response)
     }
     // sum ratings
+    const updateProduct = await Product.findById(pid)
+    const ratingCount = updateProduct.ratings.length
+    const sumRatings = updateProduct.ratings.reduce((sum, el) => sum + +el.star, 0)
+    updateProduct.totalRatings = Math.round(sumRatings * 10 / ratingCount) / 10
+    await updateProduct.save()
+    return res.status(200).json({
+        stars: true,
+        updateProduct
+    })
+
     return res.status(200).json({
         start: true
     })
