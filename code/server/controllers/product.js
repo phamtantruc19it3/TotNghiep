@@ -123,15 +123,18 @@ const ratings = asyncHandler(async (req, res) => {
     const ratingCount = updateProduct.ratings.length
     const sumRatings = updateProduct.ratings.reduce((sum, el) => sum + +el.star, 0)
     updateProduct.totalRatings = Math.round(sumRatings * 10 / ratingCount) / 10
+
     await updateProduct.save()
+
     return res.status(200).json({
         stars: true,
         updateProduct
     })
+})
 
-    return res.status(200).json({
-        start: true
-    })
+const uploadImagesProduct = asyncHandler(async (req, res) => {
+    console.log(req.file)
+    return res.json('oke')
 })
 
 module.exports = {
@@ -140,5 +143,6 @@ module.exports = {
     getProducts,
     updateProduct,
     deleteProduct,
-    ratings
+    ratings,
+    uploadImagesProduct
 }
