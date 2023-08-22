@@ -214,7 +214,10 @@ const updateCart = asyncHandler(async (req, res) => {
     const user = await User.findById(_id).select('cart')
     const alreadyProdut = user?.cart?.find(el => el.product.toString() === pid)
     if (alreadyProdut) {
+        console.log(color +`== ${alreadyProdut.color}`)
         if (alreadyProdut.color === color) {
+            console.log(" trùng màu")
+            // const newquantity = quantity+ user.cart.quantity
             const response = await User.updateOne({ cart: { $elemMatch: alreadyProdut } }, { $set: { "cart.$.quantity": quantity } }, { new: true })
             return res.status(200).json({
                 success: response ? true : false,
