@@ -21,10 +21,6 @@ const initRoutes = (app) => {
     app.use('/api/order', order)
     app.use('/api/insert', insert)
 
-
-
-
-
     
     app.use(notFound)
     app.use(errHandler)
