@@ -1,17 +1,18 @@
-import React from 'react'
-import { Banner, Sidebar } from '../../components'
+import React, { useEffect, useState } from 'react'
+import { Banner, Sidebar, BestSeller,   } from '../../components'
+
 
 const Home = () => {
+  
   return (
     <div className='w-main flex '>
       <div className=' flex-col flex gap-5 w-[20%] flex-auto '>
         <Sidebar />
         <span> Deal daily</span>
       </div>
-
       <div className=' flex-col flex gap-5 pl-5 w-[80%] flex-auto '>
-        <Banner/>
-        <span> Best Saller</span>
+        <Banner />
+        <BestSeller/>
       </div>
     </div>
   )

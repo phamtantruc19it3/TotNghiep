@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
 const {categories} = useSelector(state=> state.app)
-console.log(categories)
   return (
     <div className='flex-col flex border'>
       {categories?.map(el => (
