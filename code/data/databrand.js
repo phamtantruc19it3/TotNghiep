@@ -12,6 +12,14 @@ const data = [
         brand: ['Asus', 'Dell', 'Acer', 'HP', 'Lenovo', 'Macbook']
     },
     {
+        cate:'Speaker',
+        brand:[]
+    },
+    {
+        cate:'Camera',
+        brand:[]
+    },
+    {
         cate: 'Accessoríe',
         brand: ['Smartswatches', 'headphone', 'Bluetooth', 'Keyboard', 'Mouse', 'Cases']
     },

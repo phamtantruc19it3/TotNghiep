@@ -1,5 +1,5 @@
 const express = require('express')
-require('dotenv').config()
+require('dotenv').config() 
 const dbConnect = require('./config/dbconnect')
 const initRoutes = require('./routes')
 const cookieParser = require('cookie-parser')
@@ -12,7 +12,7 @@ app.use(cors({
     methods:['POST', 'PUT', 'DELETE','GET']
 }))
 app.use(cookieParser())
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) 
 dbConnect()

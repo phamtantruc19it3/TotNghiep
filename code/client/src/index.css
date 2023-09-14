@@ -24,8 +24,8 @@ button.slick-next::before {
   align-items: center;
 }
 button.slick-prev::before {
-  background-color: rgb(238, 175, 175);
-  color: gray;
+  background-color: rgba(238, 175, 175, 0.096);
+  color: rgba(128, 128, 128, 0.647);
   content: "\2770";
   width: 80px;
   height: 80px;

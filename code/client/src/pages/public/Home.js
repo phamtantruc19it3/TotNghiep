@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Banner, Sidebar, BestSeller,   } from '../../components'
 
 
 const Home = () => {
   
   return (
+    <>
     <div className='w-main flex '>
       <div className=' flex-col flex gap-5 w-[20%] flex-auto '>
         <Sidebar />
@@ -14,7 +15,10 @@ const Home = () => {
         <Banner />
         <BestSeller/>
       </div>
+     
     </div>
+     <div className='w-full h-[500px]'></div>
+    </>
   )
 }
 

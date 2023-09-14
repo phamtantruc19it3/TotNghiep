@@ -1,4 +1,5 @@
 const { default: mongoose } = require('mongoose')
+//ẩn đi thông báo ko cần thiết.
 mongoose.set('strictQuery', false)
 const dbConnect = async () => {
     try {

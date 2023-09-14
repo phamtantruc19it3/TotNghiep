@@ -189,13 +189,13 @@ const updateAddressUser = asyncHandler(async (req, res) => {
 //     const user = await User.findById(_id).select('cart')
 //     const alreadyProdut = user?.cart?.find(el => el.product.toString() === pid)
 //     if (!alreadyProdut || !(alreadyProdut.color === color)) {
-      
+
 //             const response = await User.findByIdAndUpdate(_id, { $push: { cart: { product: pid, quantity, color } } }, { new: true })
 //         return res.status(200).json({
 //             success: response ? true : false,
 //             updatedUser: response ? response : 'Some thing went wrong'
 //         })
-            
+
 //     } else {
 //             const response = await User.updateOne({ cart: { $elemMatch: alreadyProdut } }, { $set: { "cart.$.quantity": quantity } }, { new: true })
 //             return res.status(200).json({
@@ -214,7 +214,7 @@ const updateCart = asyncHandler(async (req, res) => {
     const user = await User.findById(_id).select('cart')
     const alreadyProdut = user?.cart?.find(el => el.product.toString() === pid)
     if (alreadyProdut) {
-        console.log(color +`== ${alreadyProdut.color}`)
+        console.log(color + `== ${alreadyProdut.color}`)
         if (alreadyProdut.color === color) {
             console.log(" trùng màu")
             // const newquantity = quantity+ user.cart.quantity
