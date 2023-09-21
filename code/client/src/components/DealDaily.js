@@ -20,9 +20,17 @@ const DealDaily = () => {
         const response = await apiGetProducts({ limit: 1, page: Math.round(Math.random() * 10), totalRatings: 5 })
         if (response.success) {
             setDealdaily(response.products[0])
-            setHours(2)
-            setMinutes(2)
-            setSeconds(2)
+            const h=24- new Date().getHours()
+            const m=60- new Date().getMinutes()
+            const s=60- new Date().getSeconds()
+
+            setHours(h)
+            setMinutes(m)
+            setSeconds(s)
+        } else{
+            setHours(0)
+            setMinutes(59)
+            setSeconds(59)
         }
 
     }
@@ -30,7 +38,7 @@ const DealDaily = () => {
     //     fetchDealDaily()
     // }, [])
     useEffect(() => {
-        clearInterval(idInterval)
+        idInterval && clearInterval(idInterval)
         fetchDealDaily()
 
     }, [expireTime])
@@ -40,12 +48,12 @@ const DealDaily = () => {
             else {
                 if (minutes > 0) {
                     setMinutes(prev => prev - 1)
-                    setSeconds(2)
+                    setSeconds(59)
                 } else {
                     if (hours > 0) {
                         setHours(prev => prev - 1)
-                        setMinutes(2)
-                        setSeconds(2)
+                        setMinutes(59)
+                        setSeconds(59)
                     }
                     else {
                         setExpiretime(!expireTime)
