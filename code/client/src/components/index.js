@@ -9,5 +9,6 @@ export { default as DealDaily} from './DealDaily'
 export { default as CountDown} from './CountDown'
 export { default as FeatureProducts} from './FeatureProducts'
 export { default as ProductCard } from './ProductCard'
+export { default as CuSlider } from './CuSlider'
 
 

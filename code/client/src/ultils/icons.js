@@ -6,6 +6,7 @@ import {
 import { MdEmail } from 'react-icons/md'
 import { HiOutlineShoppingCart, HiUserCircle, HiHome } from 'react-icons/hi'
 import { TbListDetails } from 'react-icons/tb'
+import {IoMdArrowDropright} from 'react-icons/io'
 
 
 
@@ -14,6 +15,7 @@ const icons = {
     MdEmail,
     HiOutlineShoppingCart, HiUserCircle, HiHome,
     TbListDetails,
+    IoMdArrowDropright,
 
 }
 

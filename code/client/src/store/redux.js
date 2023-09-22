@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import appSlide from './appSlide';
+import appSlide from './app/appSlide';
+import productSlice from './products/ProductSlice';
 
 export const store = configureStore({
   reducer: {
-    app: appSlide
+    app: appSlide,
+    products:productSlice,
   },
 });
