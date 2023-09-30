@@ -13,7 +13,8 @@ module.exports = {
         main: '1220px',
       },
       backgroundColor: {
-        main: '#ee3131'
+        main: '#ee3131',
+        test:'linear-gradient(90deg, rgba(71,0,83,0.9304971988795518) 0%, rgba(9,9,121,1) 42%, rgba(0,212,255,1) 97%)'
       },
       colors: {
         main: '#ee3131'
