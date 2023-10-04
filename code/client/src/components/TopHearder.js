@@ -7,7 +7,7 @@ const TopHearder = () => {
     <div className=' h-[38px] w-full bg-main flex items-center justify-center'>
         <div className=' w-main flex items-center justify-between text-xs text-white'> 
         <span> ORDER ONLINE OR CALL FOR US (+84)329746843  </span>
-        <Link to={`/${path.LOGIN}`}> Sign up or Login <u>  HERE</u> </Link>
+        <Link className='hover:text-gray-800' to={`/${path.LOGIN}`}> Sign up or Login <u>  HERE</u> </Link>
          </div>
     </div>
   )

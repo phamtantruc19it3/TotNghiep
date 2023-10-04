@@ -23,7 +23,7 @@ const Footer = () => {
             <div
                 className='h-[407px] w-full flex items-center justify-center text-[#ffffff] text-[15px]
                 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 '>
-                <div className='w-main flex' >
+                <div className='w-main flex' > 
 
                     <div className='flex-2 flex flex-col gap-2'>
                         <h3 className='mb-[20px] text-[15px] font-medium border border-main pl-[15px]'>CONTACT</h3>

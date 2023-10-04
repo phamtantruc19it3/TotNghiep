@@ -16,7 +16,7 @@ const Header = () => {
         <div className='flex flex-col items-center px-6 border-r '>
           <span className=' flex gap-4 items-center'>
             <BsFillTelephoneOutboundFill size={24} color='red' />
-            <span className='font-semibold'> +0.126947522</span>
+            <span className='font-semibold'> (+84)329 746 843</span>
           </span>
           <span>Mon-Sat 05:00AM - 10:00 PM</span>
         </div>
