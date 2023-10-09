@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <meta charset="UTF-8" />
+    <link type="css" href="./styles.css" />
+  </head>
+
+  <body>
+    <div class="calculator">
+      <div class="field">
+        <label for="num1">
+          <b>Number 1:</b>
+        </label>
+        <input id="num1" />
+      </div>
+      <div class="field">
+        <label for="num2">
+          <b>Number 2:</b>
+        </label>
+        <input id="num2" />
+      </div>
+      <div class="field">
+        <label for="operation">
+          <b>Operation:</b>
+        </label>
+        <select id="operation">
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">*</option>
+          <option value="/">/</option>
+        </select>
+      </div>
+      <button id="calculate">Calculate</button>
+
+      <h1 id="result" class=""> </h1>
+    </div>
+
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
