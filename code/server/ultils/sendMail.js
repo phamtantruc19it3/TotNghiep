@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const asyncHandler = require("express-async-handler");
 const { Model } = require("mongoose");
 
-const sendMail = asyncHandler(async ({ email, html }) => {
+const sendMail = asyncHandler(async ({ email, html,subject }) => {
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -15,7 +15,7 @@ const sendMail = asyncHandler(async ({ email, html }) => {
     let info = await transporter.sendMail({
         from: '" cửa hàng điện tử  " <ngaibenktv3@gmail.com>', // sender address
         to: email,
-        subject: "Forgot password", // Subject line
+        subject: subject, // Subject line
         html: html,
     });
     return info

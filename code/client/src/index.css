@@ -6,8 +6,9 @@
 button.slick-next {
   right: 80px;
   z-index: 10;
-
 }
+
+
 button.slick-prev {
   left: 20px;
   z-index: 10;
@@ -34,8 +35,8 @@ button.slick-prev::before {
   justify-content: center;
   align-items: center;
 }
-span#tt{
- font-size: 40px;
+span#tt {
+  font-size: 40px;
 }
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
@@ -43,4 +44,69 @@ span#tt{
     -webkit-appearance: none;
     margin: 0;
   }
+}
+.slide-fwd-tr {
+  -webkit-animation: slide-fwd-tr 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-fwd-tr 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-fwd-tr {
+  0% {
+    -webkit-transform: translateZ(0) translateY(0) translateX(0);
+    transform: translateZ(0) translateY(0) translateX(0);
+  }
+  100% {
+    -webkit-transform: translateZ(160px) translateY(-100px) translateX(100px);
+    transform: translateZ(160px) translateY(-100px) translateX(100px);
+  }
+}
+@keyframes slide-fwd-tr {
+  0% {
+    -webkit-transform: translateZ(0) translateY(0) translateX(0);
+    transform: translateZ(0) translateY(0) translateX(0);
+  }
+  100% {
+    -webkit-transform: translateZ(160px) translateY(-100px) translateX(100px);
+    transform: translateZ(160px) translateY(-100px) translateX(100px);
+  }
+}
+.slide-bottom {
+  animation: slide-bottom 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(-1000px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.fas {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: var(--fa-display, inline-block);
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+.fa-eye:before {
+  content: "\f06e";
+}
+.fa-eye-slash:before {
+    content: "\f070";
+  }
+.show-btn {
+  position: absolute;
+ 
+  transform: translateY(200%);
+  margin-left: 500px;
+  font-size: 25px;
+  color: #111;
+  cursor: pointer;
+  display: block;
 }

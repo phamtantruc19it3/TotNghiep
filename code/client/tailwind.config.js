@@ -9,12 +9,19 @@ module.exports = {
       main: ['Poppins', 'sans-serif']
     },
     extend: {
+
       width: {
         main: '1220px',
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       backgroundColor: {
         main: '#ee3131',
-        test:'linear-gradient(90deg, rgba(71,0,83,0.9304971988795518) 0%, rgba(9,9,121,1) 42%, rgba(0,212,255,1) 97%)'
+        'test': 'linear-gradient(90deg, rgba(71,0,83,0.9304971988795518) 0%, rgba(9,9,121,1) 42%, rgba(0,212,255,1) 97%)'
+      },
+      backgroundGradient: {
+        'custom-gradient': 'linear-gradient(to right, #FF5733, #6E45E2)',
       },
       colors: {
         main: '#ee3131'
@@ -31,23 +38,35 @@ module.exports = {
 
       },
       keyframes: {
-      'slide-top':{
-        '0%': {
-          '-webkit-transform': 'translateY(20px);',
-                  transform: 'translateY(20px);',
-        },
-        '100%': {
-          '-webkit-transform': 'translateY(0px);',
-                  transform: 'translateY(0px);'
+        'slide-top': {
+          '0%': {
+            '-webkit-transform': 'translateY(20px);',
+            transform: 'translateY(20px);',
+          },
+          '100%': {
+            '-webkit-transform': 'translateY(0px);',
+            transform: 'translateY(0px);'
+          },
+          'slide-fwd-tr': {
+            '0%': {
+              '-webkit-transform': 'translateZ(0) translateY(0) translateX(0);',
+              transform: 'translateZ(0) translateY(0) translateX(0);'
+            },
+            '100%': {
+              '-webkit-transform': 'translateZ(10) translateY(10) translateX(10);',
+              transform: 'translateZ(10) translateY(10) translateX(10);'
+            }
+          }
         }
-      }
       },
-      animation:{
-        'slide-top':'slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;'
+      animation: {
+        'slide-top': 'slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
+        'slide-fwd-tr':'slide-fwd-tr 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;'
       }
     },
   },
   plugins: [
-    require("@tailwindcss/line-clamp") 
+    require("@tailwindcss/line-clamp"),
+    require("tailwindcss-gradients"),
   ],
 }
