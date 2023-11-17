@@ -36,11 +36,22 @@ const register = asyncHandler(async (req, res) => {
     if (user) throw new Error('User has existed')
     else {
         const token = makeToken()
-        res.cookie('dataregister', { ...req.body, token }, { httpOnly: true, maxAge: 15 * 60 * 1000 })
-        const html = `Xin vui lòng click vào link dưới đây để hoàn tất quá trình đăng ký mật khẩu của bạn.
-        Link này sẽ hết hạn sau 15 phút kể từ bây giờ. 
-        <a href=${process.env.URL_SERVER}/api/user/finalregister/${token}>Click here</a>`
-        await sendMail({ email, html, subject: "Hoàn tất đăng ký" })
+        const emailEdited = btoa(email) + '-' + token
+        // res.cookie('dataregister', { ...req.body, token }, { httpOnly: true, maxAge: 15 * 60 * 1000 })
+        // const html = `Xin vui lòng click vào link dưới đây để hoàn tất quá trình đăng ký mật khẩu của bạn.
+        // Link này sẽ hết hạn sau 15 phút kể từ bây giờ. 
+        // <a href=${process.env.URL_SERVER}/api/user/finalregister/${token}>Click here</a>` 
+        const newUser = await User.create({
+            email: emailEdited, password, firstname, lastname, mobile
+        })
+        if (newUser) {
+            const html = `<h3> Register code:</h3> <h2><b className='text-main'>${token}</b></h2> `
+            await sendMail({ email, html, subject: "Confirm register account" })
+
+        }
+        setTimeout(async () => {
+            await User.deleteOne({ email: emailEdited })
+        },[ 1000 * 60 * 15])
         return res.json({
             success: true,
             mes: ' Please check your email to Activate Account'
@@ -50,22 +61,19 @@ const register = asyncHandler(async (req, res) => {
 
 })
 const finalRegister = asyncHandler(async (req, res) => {
-    const cookie = req.cookies
+    // const cookie = req.cookies
+
     const { token } = req.params
-    if (!cookie || cookie?.dataregister?.token !== token) {
-        res.clearCookie('dataregister')
-        return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
+    const notActiveEmail = await User.findOne({ email: new RegExp(`${token}$`) })
+    if (notActiveEmail) {
+        notActiveEmail.email = atob(notActiveEmail?.email?.split('-')[0])
+        notActiveEmail.save()
     }
-        const newUser = await User.create({
-            email: cookie?.dataregister?.email, 
-            password: cookie?.dataregister?.password,
-            firstname: cookie?.dataregister?.firstname, 
-            lastname: cookie?.dataregister?.lastname,
-            mobile: cookie?.dataregister?.mobile,
-        })
-        res.clearCookie('dataregister')
-        if(newUser) return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`)
-        else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
+    return res.json({
+        success: notActiveEmail ? true : false,
+        mes: notActiveEmail ? 'Resgiter is successfully. Please login' : 'Something went wrong right here, please try again'
+    })
+   
 })
 // Refresh token => Cấp mới access token
 // Access token => Xác thực người dùng, quân quyên người dùng
@@ -162,7 +170,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const rs = await sendMail(data)
     return res.status(200).json({
         success: rs.response?.includes('OK') ? true : false,
-        mes: rs.response?.includes('OK') ? ' Please check your Email': 'Something went wrong, please try again'
+        mes: rs.response?.includes('OK') ? ' Please check your Email' : 'Something went wrong, please try again'
     })
 })
 const resetPassword = asyncHandler(async (req, res) => {

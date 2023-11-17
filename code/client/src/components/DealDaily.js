@@ -78,7 +78,9 @@ const DealDaily = () => {
                     alt='' className='w-full object-cover '
                 />
                 <span className='line-clamp-1 text-center'>{dealdaily?.title}</span>
-                <span className='flex h-[16px]' >{renderStarfromNumber(dealdaily?.totalRatings, 20)}</span>
+                <span className='flex h-[16px]' >{renderStarfromNumber(dealdaily?.totalRatings, 20)?.map((el, index)=>(
+                    <span key={index}> {el}</span>
+                )) }</span>
                 <span>{`${formatMoney(dealdaily?.price)} VND`}</span>
             </div>
             <div className=' px-4 mt-8'>
