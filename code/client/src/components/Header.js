@@ -48,15 +48,16 @@ const Header = () => {
           <span>Online support 24/7</span>
         </div>
 
-        <div className='flex items-col justify-center gap-2 px-5  border-r'>
+        <div className='flex cursor-pointer items-center justify-center gap-2 px-5  border-r'>
           <span className=' flex  items-col '>
-            <HiOutlineShoppingCart color='red' size={24} />
+            <HiOutlineShoppingCart color='red'  />
           </span>
           <span> 0 item(s) </span>
         </div>
 
-        <div className='flex items-center justify-center px-6 '>
-          <HiUserCircle size={24} />
+        <div className='flex cursor-pointer items-center justify-center px-6 gap-2 hover:scale-175 '>
+          <HiUserCircle color='red' />
+          <span> Profile </span>
         </div>
       </div>
     </div>

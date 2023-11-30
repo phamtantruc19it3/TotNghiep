@@ -50,16 +50,16 @@ export const BestSeller = () => {
                 {/* <span className='font-bold capitalize border-r-2 pr-10'>Best Seller</span>
                 <span className='font-bold capitalize '>News Arrivals</span> */}
             </div >
-            <div className='mt-4 mx-[-5px] border-t-2 border-main pt-4'>
+            <div className='mt-4 px-[-5px] border-t-2 border-main pt-4'>
                 <CuSlider products={products} activedTab={activedTab} />
             </div>
-            <div className='w-[468px] flex gap-4 mt-4'>
-                <img src='https://dashboard.cellphones.com.vn/storage/dell inspirion.png' alt='banner'
+            <div className='w-[100%] flex gap-4 mt-4'>
+                <img src='https://res.cloudinary.com/dhsy9wkeb/image/upload/v1700811595/samples/ecommerce/banner_ggoivu.webp' alt='banner'
                     className='flex-1 object-contain'
                 />
-                <img src='https://dashboard.cellphones.com.vn/storage/595-100-Laptop-750.jpg' alt='banner'
+                {/* <img src='https://laptop88.vn/media/product/6062_dell_inspiron_7501_n2101012w_2.jpg' alt='banner'
                     className='flex-1 object-contain'
-                />
+                /> */}
 
             </div>
         </div >

@@ -16,7 +16,7 @@ const Footer = () => {
                             className=' p-4 w-full rounded-l-full  bg-[#ffffffeb] outline-none text-[#787878]' />
                     </div>
                     <div className='w-[56px] h-[56px] flex rounded-r-full bg-[#ffffffeb] text-red justify-center items-center'>
-                        <BiMailSend size={30} />
+                        <BiMailSend size={30} className='cursor-pointer focus:border-sky-500'/>
                     </div>
                 </div>
             </div>

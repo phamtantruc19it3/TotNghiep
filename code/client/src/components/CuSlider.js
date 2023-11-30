@@ -13,7 +13,7 @@ const CuSlider = ({products, activedTab}) => {
     return (
         <>
             {
-                products && <Slider {...settings}>
+                products && <Slider cl {...settings} className='mx-[-10px] custom-slider'>
                     {products?.map((el,index) => (
                         <Product
                             key={index}

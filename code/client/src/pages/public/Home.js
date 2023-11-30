@@ -12,10 +12,10 @@ const {isLoggedIn, current} = useSelector(state => state.user)
 
   return (
     <>
-      <div className='w-main flex '>
+      <div className='w-main flex mt-6'>
         <div className=' flex-col flex gap-5 w-[25%] flex-auto '>
           <Sidebar />
-          {/* <DealDaily /> */}
+          <DealDaily />
 
         </div>
         <div className=' flex-col flex gap-5 pl-5 w-[75%] flex-auto '>

@@ -3,13 +3,12 @@ import icons from '../../ultils/icons'
 import { InputField, Button } from '../../components'
 import { apiRegister, apiLogin, apiForgotPassword, apiFinalRegister } from '../../apis/user'
 import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { login } from '../../store/user/userSlice'
 import { useDispatch } from 'react-redux'
 import path from '../../ultils/path'
 import logo from '../../assets/logo.png'
 import fgpw from '../../assets/Forgot_password.png'
-import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { validate } from '../../ultils/helpers'
 import { CountDown } from '../../components'
@@ -21,7 +20,6 @@ const Login = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
 
 
   const [payload, setPayload] = useState({
@@ -100,19 +98,12 @@ const Login = () => {
   }
   //.................................................dem nguoc
   const [hours, setHours] = useState(0)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
+  const [minutes, setMinutes] = useState(15)
+  const [seconds, setSeconds] = useState(10)
   const [expireTime, setExpiretime] = useState(false)
 
-
-
-  setHours(0)
-  setMinutes(15)
-  setSeconds(0)
   useEffect(() => {
     idInterval && clearInterval(idInterval)
-    // fetchDealDaily()
-
   }, [expireTime])
   useEffect(() => {
     idInterval = setInterval(() => {
@@ -140,6 +131,7 @@ const Login = () => {
 
   return (
 
+
     <div className="w-screen font-family-karla h-screen relative">
       {isverifiedEmail &&
         <div className='absolute top-0 left-0 right-0 bottom-0 bg-[#082029e4] z-50 flex flex-col justify-center items-center'>
@@ -150,6 +142,7 @@ const Login = () => {
               <CountDown unit={'Seconds'} number={seconds} />
             </div>
             <h4 className='' >Please check your email and type in the code you received here</h4>
+
             <input type='text' name=' '
               value={token}
               onChange={e => setToken(e.target.value)}
@@ -215,7 +208,6 @@ const Login = () => {
             </Link>
           </div>
 
-
           <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
             <p className="text-center text-3xl">Welcome</p>
             <form className="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
@@ -255,9 +247,6 @@ const Login = () => {
 
                     </div>
                   </div>
-
-
-
 
                 }
                 <InputField
@@ -310,9 +299,9 @@ const Login = () => {
               {isRegister && <p className='mt-4 '>
                 <span className="underline font-semibold cursor-pointer hover:text-green-300"
                   onClick={() => setIsRegister(false)}
-                >Go Login</span>
-              </p>}
+                >Go Login</span></p>}
             </div>
+            <Link className='underline font-semibold cursor-pointer text-[#455a99]' to={`/${path.HOME}`}> Go home</Link>
           </div>
 
         </div>

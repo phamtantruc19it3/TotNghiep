@@ -34,7 +34,7 @@ const getProducts = asyncHandler(async (req, res) => {
     let queryString = JSON.stringify(queries);
     queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, matchedEl => `$${matchedEl}`);
     const formatedQueries = JSON.parse(queryString);
-    console.log(formatedQueries);
+    
 
     // Filtering
     if (queries?.title) formatedQueries.title = { $regex: queries.title, $options: 'i' }
